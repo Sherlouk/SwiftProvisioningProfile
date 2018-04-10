@@ -11,6 +11,7 @@ public extension ProvisioningProfile {
         case failedToCreateData
     }
     
+    /// Create a Provisioning Profile object from the file's Data.
     static func parse(from data: Data) throws -> ProvisioningProfile {
         
         guard let decoder = SwiftyCMSDecoder() else {
