@@ -41,7 +41,7 @@ public struct ProvisioningProfile: Codable {
     public var name: String
     
     /// An array of device UUIDs that are provisioned on this profile
-    public var provisionedDevices: [String]
+    public var provisionedDevices: [String]?
     
     /// An array of team identifier of which this profile belongs to
     public var teamIdentifiers: [String]
