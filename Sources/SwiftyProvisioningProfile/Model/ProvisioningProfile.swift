@@ -12,6 +12,7 @@ public struct ProvisioningProfile: Codable {
         case applicationIdentifierPrefixs = "ApplicationIdentifierPrefix"
         case creationDate = "CreationDate"
         case platforms = "Platform"
+        case developerCertificates = "DeveloperCertificates"
         case expirationDate = "ExpirationDate"
         case name = "Name"
         case provisionedDevices = "ProvisionedDevices"
@@ -33,6 +34,9 @@ public struct ProvisioningProfile: Codable {
     
     /// The platforms in which this profile is compatible with
     public var platforms: [String]
+    
+    /// The array of Base64 encoded developer certificates
+    public var developerCertificates: [DeveloperCertificate]
     
     /// The date in which this profile will expire
     public var expirationDate: Date
