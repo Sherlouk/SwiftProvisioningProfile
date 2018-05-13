@@ -5,7 +5,7 @@
 import Foundation
 
 /// Structure describing a Provisioning Profile and its contents
-public struct ProvisioningProfile: Codable {
+public struct ProvisioningProfile: Codable, Equatable {
     
     enum CodingKeys: String, CodingKey {
         case appIdName = "AppIDName"

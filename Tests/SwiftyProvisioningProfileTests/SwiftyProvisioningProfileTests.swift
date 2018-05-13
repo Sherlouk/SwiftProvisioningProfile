@@ -14,33 +14,43 @@ class SwiftyProvisioningProfileTests: XCTestCase {
         return Bundle(path: "\(currentBundle.bundlePath)/../../../../Tests/SwiftyProvisioningProfileTests/Resources")
     }()
     
-    lazy var testProfileURL: URL = {
+    lazy var testProfileURL: [URL] = {
         guard let bundle = resourceBundle else {
             fatalError("Tests are being run through Xcode, or the project structure no longer matches up")
         }
         
-        guard let url = bundle.url(forResource: "TestProfile", withExtension: "mobileprovision") else {
-            fatalError("No `TestProfile.mobileprovision` found in `Tests/SwiftyProvisioningProfileTests/Resources`")
+        guard let urls = bundle.urls(forResourcesWithExtension: "mobileprovision", subdirectory: nil) else {
+            fatalError("No `mobileprovision` files found in `Tests/SwiftyProvisioningProfileTests/Resources`")
         }
         
-        return url
+        return urls
     }()
     
-    func testParse() {
+    func testParseIOS() {
         
         do {
-            let data = try Data(contentsOf: testProfileURL)
-            let profile = try ProvisioningProfile.parse(from: data)
+            for url in testProfileURL {
+                let data = try Data(contentsOf: url)
+                let profile = try ProvisioningProfile.parse(from: data)
+                
+                print(profile)
+            }
             
-            print(profile)
             // TODO: Create or find a simple & usable profile and wrtie actual tests for it
         } catch {
             XCTFail(String(describing: error))
         }
 
     }
+    
+    func testParseMAC() {
+        
+        // TODO
+        
+    }
 
     static var allTests = [
-        ("testParse", testParse),
+        ("testParseIOS", testParseIOS),
+        ("testParseMAC", testParseMAC),
     ]
 }
