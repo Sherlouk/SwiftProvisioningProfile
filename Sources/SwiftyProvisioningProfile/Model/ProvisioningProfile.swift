@@ -13,6 +13,7 @@ public struct ProvisioningProfile: Codable {
         case creationDate = "CreationDate"
         case platforms = "Platform"
         case developerCertificates = "DeveloperCertificates"
+        case entitlements = "Entitlements"
         case expirationDate = "ExpirationDate"
         case name = "Name"
         case provisionedDevices = "ProvisionedDevices"
@@ -37,6 +38,9 @@ public struct ProvisioningProfile: Codable {
     
     /// The array of Base64 encoded developer certificates
     public var developerCertificates: [DeveloperCertificate]
+    
+    /// The key value pair of entitlements assosciated with this profile
+    public var entitlements: [String: PropertyListDictionaryValue]
     
     /// The date in which this profile will expire
     public var expirationDate: Date
