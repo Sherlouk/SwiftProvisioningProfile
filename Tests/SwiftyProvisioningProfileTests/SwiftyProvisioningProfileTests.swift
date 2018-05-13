@@ -33,7 +33,7 @@ class SwiftyProvisioningProfileTests: XCTestCase {
                 let data = try Data(contentsOf: url)
                 let profile = try ProvisioningProfile.parse(from: data)
                 
-                print(profile)
+                print(profile.developerCertificates.flatMap({ $0.certificate?.description }).joined(separator: "\n"))
             }
             
             // TODO: Create or find a simple & usable profile and wrtie actual tests for it
