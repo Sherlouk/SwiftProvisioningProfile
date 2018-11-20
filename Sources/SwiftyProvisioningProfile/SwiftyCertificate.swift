@@ -30,7 +30,10 @@ public extension Certificate {
             throw ParseError.failedToExtractValues
         }
         
-        return try Certificate(results: valuesDict)
+        var commonName: CFString?
+        SecCertificateCopyCommonName(certificate, &commonName)
+        
+        return try Certificate(results: valuesDict, commonName: commonName as String?)
     }
     
     private static func getSecCertificate(data: Data) throws -> SecCertificate {
