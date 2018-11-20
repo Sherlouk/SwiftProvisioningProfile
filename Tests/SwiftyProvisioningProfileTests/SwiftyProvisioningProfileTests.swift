@@ -14,7 +14,7 @@ class SwiftyProvisioningProfileTests: XCTestCase {
         return Bundle(path: "\(currentBundle.bundlePath)/../../../../Tests/SwiftyProvisioningProfileTests/Resources")
     }()
     
-    lazy var testProfileURL: [URL] = {
+    lazy var testProfileURLs: [URL] = {
         guard let bundle = resourceBundle else {
             fatalError("Tests are being run through Xcode, or the project structure no longer matches up")
         }
@@ -26,21 +26,50 @@ class SwiftyProvisioningProfileTests: XCTestCase {
         return urls
     }()
     
+    lazy var testCertificateURLs: [URL] = {
+        guard let bundle = resourceBundle else {
+            fatalError("Tests are being run through Xcode, or the project structure no longer matches up")
+        }
+        
+        guard let urls = bundle.urls(forResourcesWithExtension: "cer", subdirectory: nil) else {
+            fatalError("No `cer` files found in `Tests/SwiftyProvisioningProfileTests/Resources`")
+        }
+        
+        return urls
+    }()
+    
     func testParseIOS() {
         
         do {
-            for url in testProfileURL {
+            for url in testProfileURLs {
                 let data = try Data(contentsOf: url)
                 let profile = try ProvisioningProfile.parse(from: data)
                 
-                print(profile.developerCertificates.flatMap({ $0.certificate?.description }).joined(separator: "\n"))
+                print(profile.name)
             }
             
-            // TODO: Create or find a simple & usable profile and wrtie actual tests for it
+            // TODO: Create or find a simple & usable profile and write actual tests for it
         } catch {
             XCTFail(String(describing: error))
         }
 
+    }
+    
+    func testParseCertificate() {
+        
+        do {
+            for url in testCertificateURLs {
+                let data = try Data(contentsOf: url)
+                let certificate = try Certificate.parse(from: data)
+                
+                print(certificate)
+            }
+            
+            // TODO: Create or find a simple & usable certificate and write actual tests for it
+        } catch {
+            XCTFail(String(describing: error))
+        }
+        
     }
     
     func testParseMAC() {
@@ -52,5 +81,6 @@ class SwiftyProvisioningProfileTests: XCTestCase {
     static var allTests = [
         ("testParseIOS", testParseIOS),
         ("testParseMAC", testParseMAC),
+        ("testParseCertificate", testParseCertificate),
     ]
 }

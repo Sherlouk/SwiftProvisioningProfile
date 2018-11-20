@@ -10,14 +10,14 @@ import Foundation
 public struct DeveloperCertificate: Codable, Equatable {
     
     public let data: Data
-    public let certificate: SecureCertificate?
+    public let certificate: Certificate?
     
     // MARK: - Codable
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         data = try container.decode(Data.self)
-        certificate = try? SecureCertificate(base64EncodedData: data)
+        certificate = try? Certificate.parse(from: data)
     }
     
     public func encode(to encoder: Encoder) throws {
