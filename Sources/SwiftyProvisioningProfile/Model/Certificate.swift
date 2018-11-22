@@ -25,7 +25,7 @@ public struct Certificate: Encodable, Equatable {
     
     public let commonName: String?
     public let countryName: String
-    public let orgName: String
+    public let orgName: String?
     public let orgUnit: String
     
     init(results: [CFString: Any], commonName: String?) throws {
@@ -42,7 +42,7 @@ public struct Certificate: Encodable, Equatable {
         
         let subjectName: [[CFString: Any]] = try Certificate.getValue(for: kSecOIDX509V1SubjectName, from: results)
         countryName = try Certificate.getValue(for: kSecOIDCountryName, fromDict: subjectName)
-        orgName = try Certificate.getValue(for: kSecOIDOrganizationName, fromDict: subjectName)
+        orgName? = try Certificate.getValue(for: kSecOIDOrganizationName, fromDict: subjectName)
         orgUnit = try Certificate.getValue(for: kSecOIDOrganizationalUnitName, fromDict: subjectName)
     }
 
