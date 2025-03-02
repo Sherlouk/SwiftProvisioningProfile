@@ -17,6 +17,7 @@ public struct ProvisioningProfile: Codable, Equatable {
         case expirationDate = "ExpirationDate"
         case name = "Name"
         case provisionedDevices = "ProvisionedDevices"
+        case provisionsAllDevices = "ProvisionsAllDevices"
         case teamIdentifiers = "TeamIdentifier"
         case teamName = "TeamName"
         case timeToLive = "TimeToLive"
@@ -39,7 +40,7 @@ public struct ProvisioningProfile: Codable, Equatable {
     /// The array of Base64 encoded developer certificates
     public var developerCertificates: [DeveloperCertificate]
     
-    /// The key value pair of entitlements assosciated with this profile
+    /// The key value pair of entitlements associated with this profile
     public var entitlements: [String: PropertyListDictionaryValue]
     
     /// The date in which this profile will expire
@@ -51,6 +52,9 @@ public struct ProvisioningProfile: Codable, Equatable {
     /// An array of device UUIDs that are provisioned on this profile
     public var provisionedDevices: [String]?
     
+    /// A key indicating whether the profile provisions all devices. This is present when profile is generated for enterprise distribution.
+    public var provisionsAllDevices: Bool?
+
     /// An array of team identifier of which this profile belongs to
     public var teamIdentifiers: [String]
     
