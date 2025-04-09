@@ -17,7 +17,8 @@ public struct Certificate: Encodable, Equatable {
     
     public let notValidBefore: Date
     public let notValidAfter: Date
-    
+    public let serialNumber: String
+
     public let issuerCommonName: String
     public let issuerCountryName: String
     public let issuerOrgName: String
@@ -27,13 +28,14 @@ public struct Certificate: Encodable, Equatable {
     public let countryName: String
     public let orgName: String?
     public let orgUnit: String
-    
+
     init(results: [CFString: Any], commonName: String?) throws {
         self.commonName = commonName
         
         notValidBefore = try Certificate.getValue(for: kSecOIDX509V1ValidityNotBefore, from: results)
         notValidAfter = try Certificate.getValue(for: kSecOIDX509V1ValidityNotAfter, from: results)
-        
+        serialNumber = try Certificate.getValue(for: kSecOIDX509V1SerialNumber, from: results)
+
         let issuerName: [[CFString: Any]] = try Certificate.getValue(for: kSecOIDX509V1IssuerName, from: results)
         issuerCommonName = try Certificate.getValue(for: kSecOIDCommonName, fromDict: issuerName)
         issuerCountryName = try Certificate.getValue(for: kSecOIDCountryName, fromDict: issuerName)
